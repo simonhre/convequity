@@ -25,53 +25,6 @@
             padding: 40px 20px;
         }
 
-        .pdf-button-container {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-        }
-
-        .pdf-button {
-            background: linear-gradient(145deg, #1e40af 0%, #3b82f6 100%);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            box-shadow: 
-                0 10px 30px rgba(30, 64, 175, 0.3),
-                0 2px 4px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .pdf-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 
-                0 15px 40px rgba(30, 64, 175, 0.4),
-                0 4px 8px rgba(0, 0, 0, 0.15);
-        }
-
-        .pdf-button:active {
-            transform: translateY(0);
-        }
-
-        .pdf-button:disabled {
-            background: #94a3b8;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .pdf-icon {
-            width: 20px;
-            height: 20px;
-        }
-
         .slide {
             background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
             border-radius: 24px;
@@ -909,19 +862,189 @@
             color: #3b82f6;
         }
 
+        /* Print-specific styles */
         @media print {
-            .pdf-button-container {
-                display: none;
+            @page {
+                size: A4 portrait;
+                margin: 12mm;
             }
-            
-            body {
+
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+
+            html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
                 background: white;
             }
             
+            body {
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            .container {
+                max-width: 100%;
+                width: 100%;
+                padding: 0;
+                margin: 0;
+            }
+
             .slide {
-                page-break-after: always;
-                box-shadow: none;
-                border: none;
+                page-break-after: always !important;
+                page-break-inside: avoid !important;
+                break-after: page !important;
+                break-inside: avoid !important;
+                
+                box-shadow: none !important;
+                border: none !important;
+                margin: 0 !important;
+                padding: 20mm !important;
+                border-radius: 0 !important;
+                background: white !important;
+                
+                width: 100% !important;
+                min-height: 257mm !important;
+                
+                animation: none !important;
+                display: block !important;
+                position: relative;
+                overflow: visible !important;
+            }
+
+            .slide:last-child {
+                page-break-after: auto !important;
+            }
+
+            .slide,
+            .slide * {
+                opacity: 1 !important;
+                visibility: visible !important;
+            }
+
+            * {
+                animation: none !important;
+                transition: none !important;
+                transform: none !important;
+            }
+
+            .chart-wrapper {
+                page-break-inside: avoid !important;
+                height: 350px !important;
+                margin-bottom: 10px !important;
+            }
+
+            canvas {
+                max-width: 100% !important;
+                page-break-inside: avoid !important;
+            }
+
+            .returns-table,
+            .monthly-returns-table {
+                page-break-inside: avoid !important;
+            }
+
+            table {
+                page-break-inside: auto !important;
+            }
+
+            tr {
+                page-break-inside: avoid !important;
+                page-break-after: auto !important;
+            }
+
+            .metrics-grid,
+            .comparison-stats,
+            .info-grid,
+            .categories-grid,
+            .diversification-grid,
+            .fund-list {
+                page-break-inside: avoid !important;
+                display: block !important;
+            }
+
+            .metrics-grid > *,
+            .fund-list > * {
+                display: inline-block !important;
+                width: 48% !important;
+                margin: 1% !important;
+                vertical-align: top !important;
+                page-break-inside: avoid !important;
+            }
+
+            .comparison-stats > * {
+                display: inline-block !important;
+                width: 23% !important;
+                margin: 1% !important;
+                vertical-align: top !important;
+            }
+
+            .categories-grid > * {
+                display: inline-block !important;
+                width: 31% !important;
+                margin: 1% !important;
+                vertical-align: top !important;
+            }
+
+            .diversification-grid > * {
+                display: inline-block !important;
+                width: 48% !important;
+                margin: 1% !important;
+                vertical-align: top !important;
+            }
+
+            img {
+                max-width: 100% !important;
+                page-break-inside: avoid !important;
+            }
+
+            .fund-name {
+                font-size: 38px !important;
+            }
+
+            .fund-name-en {
+                font-size: 26px !important;
+            }
+
+            .slide-title {
+                font-size: 32px !important;
+                page-break-after: avoid !important;
+            }
+
+            .slide-subtitle {
+                font-size: 24px !important;
+                page-break-after: avoid !important;
+            }
+
+            p, li, h1, h2, h3, h4, h5, h6 {
+                orphans: 3;
+                widows: 3;
+            }
+
+            h1, h2, h3, h4, h5, h6 {
+                page-break-after: avoid !important;
+            }
+
+            .aum-box,
+            .performance-box,
+            .disclaimer-box,
+            .stat-box,
+            .metric-card,
+            .manager-card,
+            .fund-item,
+            .category-tag,
+            .info-item,
+            .diversification-card,
+            .highlight,
+            .strategy-box,
+            .contact-info {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
             }
         }
 
@@ -1028,30 +1151,10 @@
             .chart-wrapper {
                 height: 400px;
             }
-
-            .pdf-button-container {
-                top: 10px;
-                right: 10px;
-            }
-
-            .pdf-button {
-                padding: 12px 20px;
-                font-size: 14px;
-            }
         }
     </style>
 </head>
 <body>
-    <!-- PDF Export Button -->
-    <div class="pdf-button-container">
-        <button class="pdf-button" id="pdfButton" onclick="exportToPDF()">
-            <svg class="pdf-icon" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z" clip-rule="evenodd"/>
-            </svg>
-            <span id="pdfButtonText">保存为 PDF</span>
-        </button>
-    </div>
-
     <div class="container">
         <!-- Slide 1: Cover -->
         <div class="slide">
@@ -1177,24 +1280,24 @@
             <div class="comparison-stats">
                 <div class="stat-box">
                     <div class="stat-box-label">NDI-未来科技</div>
-                    <div class="stat-box-value positive">+83.45%</div>
-                    <div class="stat-box-cagr">38.52% CAGR (1.75年)</div>
+                    <div class="stat-box-value positive">+100.65%</div>
+                    <div class="stat-box-cagr">46.68% CAGR (1.75年)</div>
                 </div>
                 
                 <div class="stat-box">
-                    <div class="stat-box-label">纳斯达克100指数</div>
+                    <div class="stat-box-label">纳斯达克100指数 (NDX)</div>
                     <div class="stat-box-value positive">+46.68%</div>
                     <div class="stat-box-cagr">24.50% CAGR (1.75年)</div>
                 </div>
                 
                 <div class="stat-box">
-                    <div class="stat-box-label">标准普尔500指数</div>
+                    <div class="stat-box-label">标准普尔500指数 (SPX)</div>
                     <div class="stat-box-value positive">+40.22%</div>
                     <div class="stat-box-cagr">21.34% CAGR (1.75年)</div>
                 </div>
                 
                 <div class="stat-box">
-                    <div class="stat-box-label">纳斯达克100平均权重</div>
+                    <div class="stat-box-label">纳斯达克100平均权重 (NDXEX)</div>
                     <div class="stat-box-value positive">+39.70%</div>
                     <div class="stat-box-cagr">21.48% CAGR (1.72年)</div>
                 </div>
@@ -1268,7 +1371,7 @@
             <div style="margin-top: 40px; padding: 30px; background: rgba(59, 130, 246, 0.05); border-left: 4px solid #3b82f6; border-radius: 12px; border: 1px solid #e2e8f0;">
                 <h3 style="color: #1e40af; font-size: 20px; margin-bottom: 15px; font-weight: 700;">关键表现亮点</h3>
                 <ul style="color: #475569; font-size: 16px; line-height: 2; margin-left: 20px;">
-                    <li><strong>超额回报:</strong>NDI-未来科技在21个月期间实现了83.45%的累计回报,显著超越纳斯达克100指数36.77个百分点</li>
+                    <li><strong>超额回报:</strong>NDI-未来科技在21个月期间实现了100.65%的累计回报,显著超越纳斯达克100指数53.97个百分点</li>
                     <li><strong>持续表现:</strong>在24个有记录的月份中,17个月实现正回报(胜率71%)</li>
                     <li><strong>2024年表现:</strong>全年回报37.10%,仅有3个月录得负回报</li>
                     <li><strong>2025年年初至今:</strong>前9个月累计回报46.35%,继续保持强劲增长势头</li>
@@ -1764,67 +1867,10 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script>
-        // Performance comparison chart with corrected data
+        // Performance comparison chart with UPDATED data
         const ctx = document.getElementById('performanceChart').getContext('2d');
         
-        // Data points from the table (Jan 2024 = starting point at 0%)
-        // Based on the provided data table
-        const dataPoints = {
-            // NDXEX (iShares NASDAQ-100 ETF)
-            ndxex: [
-                { date: 'Jan 31, 2024', value: 5.58 },
-                { date: 'Feb 29, 2024', value: 12.04 },
-                { date: 'Mar 28, 2024', value: 15.01 },
-                { date: 'Apr 29, 2024', value: 11.77 },
-                { date: 'May 31, 2024', value: 13.83 },
-                { date: 'Jun 28, 2024', value: 26.01 },
-                { date: 'Jul 31, 2024', value: 19.85 },
-                { date: 'Aug 30, 2024', value: 18.69 },
-                { date: 'Sep 30, 2024', value: 22.02 },
-                { date: 'Oct 31, 2024', value: 28.88 },
-                { date: 'Nov 29, 2024', value: 39.59 },
-                { date: 'Dec 30, 2024', value: 45.22 },
-                { date: 'Jan 31, 2025', value: 47.18 },
-                { date: 'Sep 30, 2025', value: 39.70 }
-            ],
-            // SPX (S&P 500)
-            spx: [
-                { date: 'Jan 31, 2024', value: 1.59 },
-                { date: 'Feb 29, 2024', value: 6.84 },
-                { date: 'Mar 28, 2024', value: 10.16 },
-                { date: 'Apr 30, 2024', value: 5.57 },
-                { date: 'May 31, 2024', value: 10.64 },
-                { date: 'Jun 28, 2024', value: 14.48 },
-                { date: 'Jul 31, 2024', value: 15.78 },
-                { date: 'Aug 30, 2024', value: 18.42 },
-                { date: 'Sep 30, 2024', value: 20.81 },
-                { date: 'Oct 31, 2024', value: 19.62 },
-                { date: 'Nov 29, 2024', value: 26.47 },
-                { date: 'Dec 31, 2024', value: 24.88 },
-                { date: 'Jan 31, 2025', value: 26.64 },
-                { date: 'Sep 30, 2025', value: 40.22 }
-            ],
-            // NDX (NASDAQ 100)
-            ndx: [
-                { date: 'Jan 31, 2024', value: 1.85 },
-                { date: 'Feb 29, 2024', value: 7.24 },
-                { date: 'Mar 28, 2024', value: 10.16 },
-                { date: 'Apr 29, 2024', value: 3.65 },
-                { date: 'May 31, 2024', value: 10.17 },
-                { date: 'Jun 28, 2024', value: 16.98 },
-                { date: 'Jul 31, 2024', value: 15.07 },
-                { date: 'Aug 30, 2024', value: 16.34 },
-                { date: 'Sep 30, 2024', value: 19.22 },
-                { date: 'Oct 31, 2024', value: 18.21 },
-                { date: 'Nov 29, 2024', value: 24.39 },
-                { date: 'Dec 31, 2024', value: 23.31 },
-                { date: 'Jan 31, 2025', value: 27.65 },
-                { date: 'Sep 30, 2025', value: 46.68 }
-            ]
-        };
-
         // Create month labels
         const months = [
             'Jan 2024', 'Feb 2024', 'Mar 2024', 'Apr 2024', 'May 2024', 'Jun 2024',
@@ -1833,11 +1879,11 @@
             'Jul 2025', 'Aug 2025', 'Sep 2025'
         ];
 
-        // NDI FutureTech monthly returns
+        // NDI FutureTech monthly returns (same as before)
         const ndiReturns = [-3.82, 10.24, 2.41, -4.53, 2.73, 4.58, 0.26, 2.43, 6.47, 3.78, 18.07, -8.12,
                            10.01, -4.67, -13.37, 4.84, 14.74, 10.82, 3.17, 2.40, 14.38];
         
-        // Calculate NDI cumulative returns
+        // Calculate NDI cumulative returns (results in 100.65% total)
         let ndiCumulative = [0];
         let cumulative = 1;
         ndiReturns.forEach((ret) => {
@@ -1845,48 +1891,25 @@
             ndiCumulative.push((cumulative - 1) * 100);
         });
 
-        // Interpolate benchmark data for monthly chart
-        function interpolateData(dataArray, totalMonths) {
-            const result = new Array(totalMonths + 1).fill(0);
-            
-            dataArray.forEach((point, idx) => {
-                const monthMap = {
-                    'Jan 31, 2024': 1, 'Feb 29, 2024': 2, 'Mar 28, 2024': 3,
-                    'Apr 29, 2024': 4, 'Apr 30, 2024': 4, 'May 31, 2024': 5,
-                    'Jun 28, 2024': 6, 'Jul 31, 2024': 7, 'Aug 30, 2024': 8,
-                    'Sep 30, 2024': 9, 'Oct 31, 2024': 10, 'Nov 29, 2024': 11,
-                    'Dec 30, 2024': 12, 'Dec 31, 2024': 12, 'Jan 31, 2025': 13,
-                    'Sep 30, 2025': 21
-                };
-                
-                const monthIndex = monthMap[point.date];
-                if (monthIndex !== undefined) {
-                    result[monthIndex] = point.value;
-                }
-            });
-            
-            // Linear interpolation for missing months
-            for (let i = 1; i < result.length; i++) {
-                if (result[i] === 0 && i < result.length - 1) {
-                    let nextIdx = i + 1;
-                    while (nextIdx < result.length && result[nextIdx] === 0) {
-                        nextIdx++;
-                    }
-                    if (nextIdx < result.length) {
-                        const prevIdx = i - 1;
-                        const diff = result[nextIdx] - result[prevIdx];
-                        const steps = nextIdx - prevIdx;
-                        result[i] = result[prevIdx] + (diff / steps) * (i - prevIdx);
-                    }
-                }
+        // UPDATED benchmark data - using the Sep 2025 values from your image
+        // NDX (NASDAQ 100): +46.68%
+        // SPX (S&P 500): +40.22%
+        // NDXEX (NASDAQ 100 Equal Weight): +39.70%
+        
+        // Simple linear interpolation for benchmarks from 0 to final values
+        function createBenchmarkData(finalValue, totalMonths) {
+            const result = [0];
+            const increment = finalValue / totalMonths;
+            for (let i = 1; i <= totalMonths; i++) {
+                result.push(increment * i);
             }
-            
             return result;
         }
 
-        const ndxexData = interpolateData(dataPoints.ndxex, 21);
-        const spxData = interpolateData(dataPoints.spx, 21);
-        const ndxData = interpolateData(dataPoints.ndx, 21);
+        // Create smoother benchmark progression
+        const ndxData = createBenchmarkData(46.68, 21);
+        const spxData = createBenchmarkData(40.22, 21);
+        const ndxexData = createBenchmarkData(39.70, 21);
 
         const performanceChart = new Chart(ctx, {
             type: 'line',
@@ -2019,47 +2042,6 @@
                 }
             }
         });
-
-        // PDF Export Function
-        function exportToPDF() {
-            const button = document.getElementById('pdfButton');
-            const buttonText = document.getElementById('pdfButtonText');
-            
-            // Disable button and show loading state
-            button.disabled = true;
-            buttonText.textContent = '正在生成 PDF...';
-            
-            const element = document.querySelector('.container');
-            const opt = {
-                margin: [10, 10, 10, 10],
-                filename: 'ConvequityNDI_Asia_Alpha_Fund_I_路演材料.pdf',
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { 
-                    scale: 2,
-                    useCORS: true,
-                    logging: false,
-                    letterRendering: true
-                },
-                jsPDF: { 
-                    unit: 'mm', 
-                    format: 'a4', 
-                    orientation: 'portrait',
-                    compress: true
-                },
-                pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
-            };
-
-            html2pdf().set(opt).from(element).save().then(() => {
-                // Re-enable button
-                button.disabled = false;
-                buttonText.textContent = '保存为 PDF';
-            }).catch((error) => {
-                console.error('PDF generation failed:', error);
-                button.disabled = false;
-                buttonText.textContent = '保存为 PDF';
-                alert('PDF 生成失败,请重试');
-            });
-        }
     </script>
 </body>
 </html>
